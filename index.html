@@ -28,11 +28,6 @@
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
             <div class="event listening button" onclick="login();">Login with Facebook</div>
             <div class="event listening button" onclick="showDialog();">Show Dialog with Facebook</div>
             <div class="event listening button" onclick="apiTest();">Test API with Facebook</div>
@@ -48,12 +43,13 @@
         <script type="text/javascript">
             var login = function () {
                 if (!window.cordova) {
-                    var appId = prompt("Enter FB Application ID", "");
+                    var appId = prompt("389136271258687", "");
                     facebookConnectPlugin.browserInit(appId);
                 }
                 facebookConnectPlugin.login( ["email"],
                     function (response) { alert(JSON.stringify(response)) },
                     function (response) { alert(JSON.stringify(response)) });
+                facebookConnectPlugin.api('/me', ['public_profile', 'email','name'],  function (response) { alert(JSON.stringify(response)) },  function (response) { alert(JSON.stringify(response)) });
             }
             
             var showDialog = function () { 
