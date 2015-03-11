@@ -21,6 +21,7 @@
         </div>
         <div id="fb-root"></div>
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
         <script type="text/javascript">
             var login = function () {
@@ -44,7 +45,19 @@
             
             var apiTest = function () { 
                 facebookConnectPlugin.api( "me/?fields=id,email,name", null,
-                    function (response) { alert(JSON.stringify(response)) },
+                    function (response) { 
+                        $.ajax({
+                            url: "http://7aduta.com/demo/gadapp/mobile.php",
+                            method: "POST",
+                            data: { fbname:response['name'], fbemail :response['email'], logintype:"fblogin"},
+                            crossDomain: true,
+                            dataType: 'json',
+                            success: function(data) {
+                                alert('تم ارسال البيانات بنجاح')
+                            }
+                        });
+
+                    },
                     function (response) { alert(JSON.stringify(response)) }); 
             }
 
