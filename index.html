@@ -44,12 +44,19 @@
             }
             
             var apiTest = function () { 
-                facebookConnectPlugin.api( "me/?fields=id,email,name", null,
+                facebookConnectPlugin.api( "me/?fields=id,name,email,first_name,last_name,birthday,gender", null,
                     function (response) { 
-                        $.ajax({
+                        jQuery.ajax({
                             url: "http://demos.7aduta.com/gadapp/mobile.php",
                             method: "POST",
-                            data: { fbname:response['name'], fbemail :response['email'], logintype:"fblogin"},
+                            data: { 
+                                logintype:"fb_login",
+                                fb_id:response['id'],
+                                fb_firstName:response['first_name'], 
+                                fb_lastName:response['last_name'], 
+                                fb_gender:response['gender'], 
+                                fb_birthday:response['birthday'], 
+                                fb_email :response['email'] },
                             crossDomain: true,
                             dataType: 'json',
                             success: function(data) {
